@@ -1,6 +1,5 @@
 package org.example;
 
-import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,12 +14,9 @@ import org.apache.commons.math3.linear.RealMatrix;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+
 
 
 /**
@@ -42,9 +38,7 @@ public class App extends Application
 
         RLS rls = new RLS(5, 0.95);
 
-//
-//        InputStream in = App.class.getResourceAsStream("file.csv");
-//        InputStreamReader rr = new InputStreamReader(in, StandardCharsets.UTF_8);
+
 
 
 
@@ -65,15 +59,8 @@ public class App extends Application
 
         }
 
-
-
-
-
         URL resource = App.class.getClassLoader().getResource("file.csv");
         File file = Paths.get(resource.toURI()).toFile();
-
-
-
 
        /* try (CSVReader reader = new CSVReader(new FileReader(file))) {
             List<String[]> r = reader.readAll();
@@ -84,10 +71,6 @@ public class App extends Application
 
 
     }
-
-
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
