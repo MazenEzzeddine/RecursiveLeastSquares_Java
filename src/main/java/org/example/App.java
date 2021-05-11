@@ -29,6 +29,7 @@ public class App extends Application
 
 {
     static CSVPlot2 csvp  = null;
+    static  double[] pred = null;
 
     public static void main( String[] args ) throws IOException, CsvException, URISyntaxException, ParseException {
         System.out.println( "Hello World!" );
@@ -45,7 +46,7 @@ public class App extends Application
         csvp = new CSVPlot2();
         csvp.loadFile();
         double[][] Xx = new double[1][5];
-        double[] pred = new double[csvp.datax.size() - num_vars];
+        pred = new double[csvp.datax.size() - num_vars];
 
         RealMatrix X;
 
@@ -95,18 +96,26 @@ public class App extends Application
 
 
         XYChart.Series dataSeries1 = new XYChart.Series();
-        dataSeries1.setName("Some Data");
+        dataSeries1.setName("actual data");
+        XYChart.Series dataSeries2 = new XYChart.Series();
+        dataSeries2.setName("predicted data");
 
-        int i=0;
         Double dy;
-        for (double d: csvp.datax) {
+
+        for (int i= 0; i < csvp.datax.size() - 5; i++) {
+
             dy = csvp.datay.get(i);
            // System.out.println(d + " "+ dy);
             dataSeries1.getData().add(new XYChart.Data(i, dy));
-            i++;
+
         }
 
+        for(int i =0; i< csvp.datax.size() -5; i++ )
+            dataSeries2.getData().add(new XYChart.Data(i, pred[i]));
+
+        lineChart.getData().add(dataSeries2);
         lineChart.getData().add(dataSeries1);
+
 
         VBox vbox = new VBox(lineChart);
 
