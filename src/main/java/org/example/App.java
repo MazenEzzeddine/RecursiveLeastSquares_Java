@@ -45,17 +45,21 @@ public class App extends Application
         csvp = new CSVPlot2();
         csvp.loadFile();
         double[][] Xx = new double[1][5];
+        double[] pred = new double[csvp.datax.size() - num_vars];
+
         RealMatrix X;
 
-        for (int i = 0; i< csvp.datax.size(); i++){
+        for (int i = 0; i< csvp.datax.size() - num_vars; i++){
             for(int j=0; j<5; j++) {
                 Xx[0][j] = csvp.datay.get(i + j);
             }
             X = new Array2DRowRealMatrix(Xx);
             //rls.get_error();
+            pred[i] = (rls.w.transpose().multiply(X.transpose())).getEntry(0,0);
 
             double y1 = csvp.datay.get(i+num_vars);
             rls.add_obs(X.transpose(), y1);
+            System.out.println("index, pred, actual " +  (i+num_vars + 1) +  "," + pred[i]  +  "," + y1);
 
         }
 
@@ -97,7 +101,7 @@ public class App extends Application
         Double dy;
         for (double d: csvp.datax) {
             dy = csvp.datay.get(i);
-            System.out.println(d + " "+ dy);
+           // System.out.println(d + " "+ dy);
             dataSeries1.getData().add(new XYChart.Data(i, dy));
             i++;
         }

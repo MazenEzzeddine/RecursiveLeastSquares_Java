@@ -12,7 +12,7 @@ public class RLS {
 
     private RealMatrix P;
 
-    private RealMatrix w;
+    public RealMatrix w;
 
     private RealMatrix aRealMatrix;
     RealMatrix bRealMatrix;
